@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,139 +10,287 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-deep: #0a0a1a;
-      --bg-card: rgba(255,255,255,0.04);
-      --border-subtle: rgba(255,255,255,0.08);
-      --accent: #6366f1;
-      --accent-glow: rgba(99,102,241,0.25);
-      --green: #10b981;
-      --amber: #f59e0b;
-      --orange: #f97316;
-      --red: #ef4444;
+      --page-bg: #f1f3f6;
+      --card-bg: #ffffff;
+      --card-border: #e2e6ec;
+      --card-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 2px 12px rgba(0,0,0,0.04);
+      --card-shadow-hover: 0 4px 16px rgba(0,0,0,0.10);
+
+      --text-primary: #1a1d23;
+      --text-secondary: #5f6b7a;
+      --text-muted: #99a3b0;
+      --border-input: #cdd3dc;
+
+      --navy: #1e3a5f;
+      --navy-hover: #152d4a;
+      --teal: #0d7377;
+      --teal-hover: #095456;
+
+      --green: #0f8c5e;
+      --green-bg: #e6f7ef;
+      --amber: #b8860b;
+      --amber-bg: #fdf5e1;
+      --orange: #c05621;
+      --orange-bg: #fef0e5;
+      --red: #c0392b;
+      --red-bg: #fde8e6;
     }
 
     * { font-family: 'Inter', sans-serif; }
 
     body {
-      background: linear-gradient(160deg, var(--bg-deep) 0%, #111133 50%, #0d0d2b 100%);
+      background: var(--page-bg);
       min-height: 100vh;
-      color: #e2e8f0;
+      color: var(--text-primary);
     }
 
+    /* ---- Navbar ---- */
     .navbar {
-      background: rgba(10,10,26,0.85) !important;
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-subtle);
+      background: var(--navy) !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
     }
     .navbar-brand {
       font-weight: 800;
-      font-size: 1.25rem;
-      background: linear-gradient(135deg, #818cf8, #6366f1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 1.2rem;
+      color: #ffffff !important;
+      letter-spacing: -0.3px;
     }
+    .navbar-brand i { color: #5bc0be; }
+    .navbar .text-secondary { color: rgba(255,255,255,0.55) !important; font-size: 0.8rem; }
 
-    .glass-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      backdrop-filter: blur(12px);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .glass-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
-
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: 800;
-      line-height: 1;
-    }
-    .stat-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; }
-
-    .stat-pending .stat-number  { color: var(--amber); }
-    .stat-dispatched .stat-number { color: var(--green); }
-    .stat-total .stat-number    { color: var(--accent); }
-
-    .nav-pills .nav-link {
-      color: #94a3b8;
+    /* ---- Cards ---- */
+    .dash-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 12px;
-      padding: 10px 20px;
+      box-shadow: var(--card-shadow);
+      transition: box-shadow 0.2s ease;
+    }
+    .dash-card:hover { box-shadow: var(--card-shadow-hover); }
+
+    /* ---- Stat Cards ---- */
+    .stat-number {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .stat-label {
+      font-size: 0.72rem;
       font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .stat-pending  { border-left: 4px solid var(--amber); }
+    .stat-pending  .stat-number { color: var(--amber); }
+    .stat-dispatched { border-left: 4px solid var(--green); }
+    .stat-dispatched .stat-number { color: var(--green); }
+    .stat-total    { border-left: 4px solid var(--navy); }
+    .stat-total    .stat-number { color: var(--navy); }
+
+    /* ---- Tabs ---- */
+    .nav-pills { gap: 6px; }
+    .nav-pills .nav-link {
+      color: var(--text-secondary);
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    .nav-pills .nav-link:not(.active):hover {
+      color: var(--navy);
+      background: #e8ecf1;
+      border-color: #dce0e8;
     }
     .nav-pills .nav-link.active {
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 4px 20px var(--accent-glow);
+      background: var(--navy);
+      color: #ffffff;
+      border-color: var(--navy);
+      box-shadow: 0 2px 8px rgba(30,58,95,0.25);
     }
-    .nav-pills .nav-link:not(.active):hover { color: #e2e8f0; background: rgba(255,255,255,0.06); }
 
-    .tab-content { margin-top: 1.5rem; }
+    .tab-content { margin-top: 1.25rem; }
 
+    /* ---- Section Headers ---- */
+    .dash-card h5 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .dash-card h5 small {
+      font-weight: 500;
+      color: var(--text-muted) !important;
+      font-size: 0.78rem;
+    }
+
+    /* ---- Forms ---- */
+    .form-label {
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
     .form-control, .form-select {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border-subtle);
-      color: #e2e8f0;
-      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid var(--border-input);
+      color: var(--text-primary);
+      border-radius: 8px;
+      padding: 9px 13px;
+      font-size: 0.9rem;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
     .form-control:focus, .form-select:focus {
-      background: rgba(255,255,255,0.08);
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-      color: #fff;
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(30,58,95,0.12);
+      background: #ffffff;
+      color: var(--text-primary);
     }
-    .form-label { font-weight: 600; font-size: 0.85rem; color: #94a3b8; }
+    .form-control::placeholder { color: var(--text-muted); }
 
+    /* ---- Buttons — Primary Action ---- */
     .btn-accent {
-      background: linear-gradient(135deg, #6366f1, #818cf8);
-      border: none; color: #fff; font-weight: 700; border-radius: 10px;
-      padding: 10px 28px; transition: all 0.2s;
+      background: var(--navy);
+      border: none;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.88rem;
+      border-radius: 8px;
+      padding: 10px 24px;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
     }
-    .btn-accent:hover { transform: translateY(-1px); box-shadow: 0 6px 24px var(--accent-glow); color: #fff; }
+    .btn-accent:hover {
+      background: var(--navy-hover);
+      box-shadow: 0 3px 12px rgba(30,58,95,0.30);
+      transform: translateY(-1px);
+      color: #ffffff;
+    }
+    .btn-accent:active { transform: translateY(0); }
+    .btn-accent:disabled {
+      background: #b0b8c4;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
 
+    /* ---- Buttons — Dispatch (Destructive Action) ---- */
     .btn-dispatch {
-      background: linear-gradient(135deg, #ef4444, #f97316);
-      border: none; color: #fff; font-weight: 700; border-radius: 10px;
-      padding: 10px 28px; transition: all 0.2s;
+      background: var(--red);
+      border: none;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.88rem;
+      border-radius: 8px;
+      padding: 10px 24px;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
     }
-    .btn-dispatch:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(239,68,68,0.35); color: #fff; }
+    .btn-dispatch:hover {
+      background: #a8311f;
+      box-shadow: 0 3px 12px rgba(192,57,43,0.30);
+      transform: translateY(-1px);
+      color: #ffffff;
+    }
+    .btn-dispatch:active { transform: translateY(0); }
+    .btn-dispatch:disabled {
+      background: #b0b8c4;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
 
-    .table { --bs-table-bg: transparent; --bs-table-color: #e2e8f0; }
+    /* ---- Tables ---- */
+    .table {
+      --bs-table-bg: transparent;
+      --bs-table-color: var(--text-primary);
+      margin-bottom: 0;
+    }
     .table thead th {
-      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
-      color: #64748b; border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      border-bottom: 2px solid var(--card-border);
+      padding: 10px 12px;
+      background: #fafbfc;
     }
-    .table td { vertical-align: middle; border-bottom: 1px solid var(--border-subtle); }
+    .table td {
+      vertical-align: middle;
+      border-bottom: 1px solid #f0f2f5;
+      padding: 11px 12px;
+      font-size: 0.88rem;
+    }
+    .table tbody tr:hover { background: #f7f9fb; }
+    .table td.text-secondary { color: var(--text-secondary) !important; }
 
+    /* ---- Urgency Badges ---- */
     .badge-urgency {
-      padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;
-      display: inline-block; min-width: 32px; text-align: center;
+      padding: 3px 10px;
+      border-radius: 5px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      display: inline-block;
+      min-width: 30px;
+      text-align: center;
     }
 
-    .urgency-slider { width: 100%; accent-color: var(--accent); }
-    .urgency-label { font-weight: 800; font-size: 1.1rem; }
+    /* ---- Status Badges ---- */
+    .status-badge-pending    { background: var(--amber-bg); color: var(--amber); }
+    .status-badge-dispatched { background: var(--green-bg); color: var(--green); }
 
+    /* ---- Urgency Slider ---- */
+    .urgency-slider { width: 100%; accent-color: var(--navy); }
+    .urgency-label  { font-weight: 800; font-size: 1.05rem; }
+
+    /* ---- Search Toggle ---- */
+    .search-toggle .btn {
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .search-toggle .btn-outline-secondary {
+      color: var(--text-secondary);
+      border-color: var(--border-input);
+    }
+    .search-toggle .btn-outline-secondary:hover {
+      background: #e8ecf1;
+      color: var(--text-primary);
+      border-color: #bcc3ce;
+    }
+    .search-toggle .btn-check:checked + .btn-outline-secondary {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #ffffff;
+    }
+
+    /* ---- Toast ---- */
     .toast-container { z-index: 9999; }
 
+    /* ---- Empty State ---- */
     .empty-state {
-      text-align: center; padding: 3rem 1rem; opacity: 0.5;
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
     }
-    .empty-state i { font-size: 3rem; margin-bottom: 1rem; }
+    .empty-state i {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      display: block;
+      color: #c9ced6;
+    }
+    .empty-state p { margin: 0; font-size: 0.9rem; }
 
+    /* ---- Fade In Animation ---- */
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .fade-in { animation: fadeInUp 0.4s ease-out; }
-
-    .search-toggle .btn { border-radius: 8px; font-size: 0.85rem; font-weight: 600; }
-    .search-toggle .btn-check:checked + .btn { background: var(--accent); border-color: var(--accent); }
-
-    .status-badge-pending    { background: rgba(245,158,11,0.15); color: var(--amber); }
-    .status-badge-dispatched { background: rgba(16,185,129,0.15); color: var(--green); }
+    .fade-in { animation: fadeInUp 0.35s ease-out; }
   </style>
 </head>
 <body>
@@ -159,19 +307,19 @@
   <!-- Stats -->
   <div class="row g-3 mb-4" id="stats-row">
     <div class="col-md-4">
-      <div class="glass-card p-4 stat-pending">
+      <div class="dash-card p-4 stat-pending">
         <div class="stat-label">Pending Calls</div>
         <div class="stat-number" id="stat-pending">0</div>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="glass-card p-4 stat-dispatched">
+      <div class="dash-card p-4 stat-dispatched">
         <div class="stat-label">Dispatched</div>
         <div class="stat-number" id="stat-dispatched">0</div>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="glass-card p-4 stat-total">
+      <div class="dash-card p-4 stat-total">
         <div class="stat-label">Total Logged</div>
         <div class="stat-number" id="stat-total">0</div>
       </div>
@@ -190,8 +338,8 @@
 
     <!-- LOG CALL -->
     <div class="tab-pane fade show active" id="tab-log">
-      <div class="glass-card p-4 fade-in">
-        <h5 class="mb-3 fw-bold">Log a New Rescue Call</h5>
+      <div class="dash-card p-4 fade-in">
+        <h5 class="mb-3">Log a New Rescue Call</h5>
         <form id="log-form">
           <div class="row g-3">
             <div class="col-md-6">
@@ -228,9 +376,9 @@
 
     <!-- PENDING -->
     <div class="tab-pane fade" id="tab-pending">
-      <div class="glass-card p-4 fade-in">
+      <div class="dash-card p-4 fade-in">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h5 class="fw-bold mb-0">Pending Rescue Queue</h5>
+          <h5 class="mb-0">Pending Rescue Queue</h5>
           <button class="btn btn-dispatch" id="btn-dispatch"><i class="bi bi-lightning-fill me-1"></i>Dispatch Highest Priority</button>
         </div>
         <div id="pending-content"></div>
@@ -239,15 +387,15 @@
 
     <!-- SEARCH -->
     <div class="tab-pane fade" id="tab-search">
-      <div class="glass-card p-4 fade-in">
-        <h5 class="fw-bold mb-3">Search Calls <small class="text-secondary">(via C BST Engine)</small></h5>
+      <div class="dash-card p-4 fade-in">
+        <h5 class="mb-3">Search Calls <small>(via C BST Engine)</small></h5>
         <div class="row g-3 mb-3">
           <div class="col-md-3">
             <div class="search-toggle btn-group w-100">
               <input type="radio" class="btn-check" name="stype" id="stype-animal" value="animal" checked>
-              <label class="btn btn-outline-light" for="stype-animal"><i class="bi bi-bug me-1"></i>Animal</label>
+              <label class="btn btn-outline-secondary" for="stype-animal"><i class="bi bi-bug me-1"></i>Animal</label>
               <input type="radio" class="btn-check" name="stype" id="stype-location" value="location">
-              <label class="btn btn-outline-light" for="stype-location"><i class="bi bi-geo-alt me-1"></i>Location</label>
+              <label class="btn btn-outline-secondary" for="stype-location"><i class="bi bi-geo-alt me-1"></i>Location</label>
             </div>
           </div>
           <div class="col-md-7">
@@ -263,8 +411,8 @@
 
     <!-- HISTORY -->
     <div class="tab-pane fade" id="tab-history">
-      <div class="glass-card p-4 fade-in">
-        <h5 class="fw-bold mb-3">Dispatch History <small class="text-secondary">(Stack — LIFO order from DB)</small></h5>
+      <div class="dash-card p-4 fade-in">
+        <h5 class="mb-3">Dispatch History <small>(Stack — LIFO order from DB)</small></h5>
         <div id="history-content"></div>
       </div>
     </div>
@@ -277,7 +425,7 @@
   <div id="app-toast" class="toast align-items-center border-0" role="alert">
     <div class="d-flex">
       <div class="toast-body" id="toast-msg"></div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
     </div>
   </div>
 </div>
@@ -301,7 +449,7 @@ function urgencyColor(u) {
 }
 
 function urgencyBadge(u) {
-  const bg = u <= 3 ? 'rgba(16,185,129,0.15)' : u <= 6 ? 'rgba(245,158,11,0.15)' : u <= 8 ? 'rgba(249,115,22,0.15)' : 'rgba(239,68,68,0.15)';
+  const bg = u <= 3 ? 'var(--green-bg)' : u <= 6 ? 'var(--amber-bg)' : u <= 8 ? 'var(--orange-bg)' : 'var(--red-bg)';
   return `<span class="badge-urgency" style="background:${bg};color:${urgencyColor(u)}">${u}</span>`;
 }
 
