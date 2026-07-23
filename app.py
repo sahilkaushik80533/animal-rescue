@@ -286,6 +286,26 @@ def stats():
     })
 
 
+@app.route('/api/undo', methods=['POST'])
+def undo_dispatch():
+    conn = get_db()
+    row = conn.execute(
+        "SELECT * FROM rescues WHERE status='dispatched' ORDER BY dispatched_at DESC LIMIT 1"
+    ).fetchone()
+    if not row:
+        conn.close()
+        return jsonify({'error': 'No dispatched calls to undo.'}), 400
+
+    conn.execute(
+        'UPDATE rescues SET status=?, dispatched_at=NULL WHERE id=?',
+        ('pending', row['id'])
+    )
+    conn.commit()
+    updated = conn.execute('SELECT * FROM rescues WHERE id=?', (row['id'],)).fetchone()
+    conn.close()
+    return jsonify(dict(updated))
+
+
 @app.route('/api/validate', methods=['POST'])
 def validate_field():
     """Validate a single field using the C engine validate command."""
