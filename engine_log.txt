@@ -152,3 +152,9 @@ OP: stats        | Call ID:   -1 | Result: 7
 OP: sort         | Call ID:   -1 | Result: 7
 OP: sort         | Call ID:   -1 | Result: 7
 OP: stats        | Call ID:   -1 | Result: 7
+OP: stats        | Call ID:   -1 | Result: 7
+OP: sort         | Call ID:   -1 | Result: 7
+OP: sort         | Call ID:   -1 | Result: 7
+OP: stats        | Call ID:   -1 | Result: 7
+OP: stats        | Call ID:   -1 | Result: 7
+OP: sort         | Call ID:   -1 | Result: 7
